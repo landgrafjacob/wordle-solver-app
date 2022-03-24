@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 
-const Entry = ({ formData, setFormData, feedbackData, setFeedbackData }) => {
+const Entry = ({ guesses, setGuesses }) => {
+    const [ formData, setFormData ] = useState('slate')
+    const [ resultData, setResultData ] = useState("00000")
     const [ guessed, setGuessed ] = useState(false)
     function handleFirstSubmit(event) {
         event.preventDefault();
@@ -9,7 +11,9 @@ const Entry = ({ formData, setFormData, feedbackData, setFeedbackData }) => {
 
     function handleSecondSubmit(event) {
         event.preventDefault();
-        console.log(feedbackData)
+        console.log(resultData);
+        setGuesses([...guesses, formData]);
+        setGuessed(false);
     }
 
     function handleButtonClick(event) {
@@ -19,21 +23,21 @@ const Entry = ({ formData, setFormData, feedbackData, setFeedbackData }) => {
         switch (color) {
             case "grey":
                 event.target.style.backgroundColor = "rgb(228, 208, 10)";
-                setFeedbackData(feedbackData.substr(0,id) + "y" + feedbackData.substr(id+1));
+                setResultData(resultData.substr(0,id) + "y" + resultData.substr(id+1));
                 break;
             case "rgb(228, 208, 10)":
                 event.target.style.backgroundColor = "green";
-                setFeedbackData(feedbackData.substr(0,id) + "g" + feedbackData.substr(id+1));
+                setResultData(resultData.substr(0,id) + "g" + resultData.substr(id+1));
                 break;
             default:
                 event.target.style.backgroundColor = "grey";
-                setFeedbackData(feedbackData.substr(0,id) + "0" + feedbackData.substr(id+1));
+                setResultData(resultData.substr(0,id) + "0" + resultData.substr(id+1));
         }
     }
 
     function handleBackClick() {
         setGuessed(false);
-        setFeedbackData("00000");
+        setResultData("00000");
     }
 
 

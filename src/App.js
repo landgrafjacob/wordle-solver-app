@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 import './App.css';
 import Header from './components/Header'
 import Entry from './components/Entry'
+import Recommendation from './components/Recommendation'
+import Guesses from './components/Guesses'
 
 
 function App() {
-  const [ formData, setFormData ] = useState("slate")
-  const [ feedbackData, setFeedbackData ] = useState("00000")
+  const [ guesses, setGuesses ] = useState([])
 
   return (
     <div className="App">
       <Header />
-      <Entry formData={formData} setFormData={setFormData} feedbackData={feedbackData} setFeedbackData={setFeedbackData} />
+      <Recommendation />
+      <Guesses guesses={guesses} />
+      <Entry guesses={guesses} setGuesses={setGuesses}/>
     </div>
   );
 }
