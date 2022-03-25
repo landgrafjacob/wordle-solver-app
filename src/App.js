@@ -8,13 +8,14 @@ import Guesses from './components/Guesses'
 
 function App() {
   const [ guesses, setGuesses ] = useState([])
+  const [ bestWord, setBestWord ] = useState("")
 
   return (
     <div className="App">
       <Header />
-      <Recommendation />
+      <Recommendation bestWord={bestWord} />
       <Guesses guesses={guesses} />
-      <Entry guesses={guesses} setGuesses={setGuesses}/>
+      <Entry guesses={guesses} setGuesses={setGuesses} setBestWord={setBestWord} />
     </div>
   );
 }
