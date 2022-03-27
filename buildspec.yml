@@ -6,12 +6,12 @@ phases:
       nodejs: 12
    
     commands:
-        # install npm
+        - echo Installing Node...
         - npm install
        
   build:
     commands:
-        # run build script
+        - Building...
         - npm run-script build
      
 artifacts:
@@ -21,3 +21,5 @@ artifacts:
     - public/**/*
     - src/**/*
     - package.json
+  discard-paths: no
+  base-directory: build
