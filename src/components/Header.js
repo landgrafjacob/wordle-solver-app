@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+// Simple header
 function Header() {
     return (
         <h1 className="header">
