@@ -33,7 +33,7 @@ const Entry = ({ guesses, setGuesses, setBestWord, setNotification, wordlist, se
             
             if (result.charAt(i) === 'g' && c !== word.charAt(i)) {return false}
     
-            else if (result.charAt(i) === 'y' && (word.charAt(i) === c || !word.includes(c))) {return false}
+            else if (result.charAt(i) === 'y' && (word.charAt(i) === c || !(word.includes(c)))) {return false}
     
             else if (result.charAt(i) === '0' && word.includes(c)) {return false};
         }
@@ -72,6 +72,8 @@ const Entry = ({ guesses, setGuesses, setBestWord, setNotification, wordlist, se
             })
         setGuesses([...guesses, formData]);
         setGuessed(false);
+        setResultData("00000");
+        console.log(wordlist);
     }
 
     // Handler for the buttons to input the result. Sequences color through grey, yellow, and green

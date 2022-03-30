@@ -19,16 +19,15 @@
 }
 
 h1 {
-  /* font-size: calc(10px + 4vmin); */
-  font-size: 8vmin;
+  font-size: 3em;
 }
 
 h3 {
-  font-size: 4vmin;
+  font-size: 1.5em;
 }
 
 h4 {
-  font-size: 3vmin;
+  font-size: 1em;
 }
 
 input[type=button] {
@@ -53,15 +52,14 @@ input[type=text] {
 
 .rec {
   background-color: #1a1c21;
-  /* padding-inline: 20px; */
   border-radius: 1em;
   margin-bottom: 20px;
-  width: 22em;
+  width: 25em;
 }
 
 .notification {
   background-color: green;
-  width: 22em;
+  width: 25em;
   padding-block: 10px;
   margin-top: 1em;
   border-radius: 0.5em;
@@ -69,7 +67,7 @@ input[type=text] {
 
 .error {
   background-color: red;
-  width: 22em;
+  width: 25em;
   padding-block: 10px;
   margin-top: 1em;
   border-radius: 0.5em;
