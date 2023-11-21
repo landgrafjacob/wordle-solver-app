@@ -4,16 +4,46 @@ on:
 env:
   AWS_REGION : "us-west-2"
   IAM_ROLE: ${{ secrets.IAM_ROLE }}
+  REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
 # permission can be added at job level or workflow level    
 permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
 jobs:
-  TerraformPlan:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: git clone the repository
         uses: actions/checkout@v4
+
+      - name: configure node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: build app
+        run: npm run build
+        env:
+          REACT_APP_BACKEND_URL: ${{ env.REACT_APP_BACKEND_URL }}
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: react-build
+          path: build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: react-build
+
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -21,5 +51,6 @@ jobs:
           role-session-name: GitHubActionSession
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: List s3 buckets
-        run: aws s3 ls
+      - name: deploy to s3
+        run: aws s3 sync . s3://wordle-solver-website-bucket
+        working-directory: react-build
