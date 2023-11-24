@@ -13,11 +13,11 @@ const Entry = ({ guesses, setGuesses, setBestWord, setNotification, wordlist, se
 
     // Load the wordlist and first recommendation from backend
     useEffect(() => {
-        axios.get('https://kw0fp1o8w9.execute-api.us-east-2.amazonaws.com/prod/wordlist')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/wordlist`)
             .then(res => { 
                 setFullWordList(res.data);
                 setWordlist(res.data);
-                return axios.post('https://kw0fp1o8w9.execute-api.us-east-2.amazonaws.com/prod/recommendation', { "wordlist": res.data });
+                return axios.post(`${process.env.REACT_APP_BACKEND_URL}/recommendation`, { "wordlist": res.data });
             })
             .then(res => {
                     setBestWord(res["data"]["best_word"])
@@ -62,7 +62,7 @@ const Entry = ({ guesses, setGuesses, setBestWord, setNotification, wordlist, se
         }
         const newList = wordlist.filter(w => goodWord(w, formData, resultData));
 
-        axios.post('https://kw0fp1o8w9.execute-api.us-east-2.amazonaws.com/prod/recommendation', { "wordlist": newList })
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/recommendation`, { "wordlist": newList })
             .then(res => {
                 const newBestWord = res["data"]["best_word"];
                 setBestWord(newBestWord);
